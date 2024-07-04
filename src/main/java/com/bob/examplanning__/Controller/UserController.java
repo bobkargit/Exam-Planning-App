@@ -24,7 +24,7 @@ import java.util.List;
 @Controller
 public class UserController {
     @Autowired
-    private IUserService userService; // Injection du service metier ici
+    private IUserService userService;
     @Autowired
     private IAdminService adminService;
     @Autowired
