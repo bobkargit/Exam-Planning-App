@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="en"
+      class="light-style layout-menu-fixed"
+      dir="ltr"
+      data-theme="theme-default"
+      data-assets-path="assets/"
+      data-template="vertical-menu-template-free">
+<head>
+    <meta charset="utf-8" />
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+
+    <title>Surveillances</title>
+    <style>
+        /* Table styles */
+        .table-custom {
+            width: 100%;
+            margin-bottom: 1rem;
+            background-color: #fff;
+            border-collapse: collapse;
+        }
+
+        .table-custom th, .table-custom td {
+            padding: 0.75rem;
+            vertical-align: top;
+            border-top: 1px solid #dee2e6;
+        }
+
+        .table-custom thead th {
+            vertical-align: bottom;
+            border-bottom: 2px solid #dee2e6;
+            background-color: #f8f9fa;
+            color: #495057;
+        }
+
+        .table-custom tbody tr:nth-of-type(odd) {
+            background-color: #f2f2f2;
+        }
+
+        /* Button styles */
+        .btn-custom {
+            color: #fff;
+            background-color: #007bff;
+            border-color: #007bff;
+            padding: 0.375rem 0.75rem;
+            border-radius: 0.25rem;
+            font-size: 1rem;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            margin: 0 0.25rem;
+        }
+
+        .btn-custom:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
+
+        /* Button danger (for delete action) */
+        .btn-danger-custom {
+            background-color: #dc3545;
+            border-color: #dc3545;
+        }
+
+        .btn-danger-custom:hover {
+            background-color: #c82333;
+            border-color: #bd2130;
+        }
+    </style>
+
+</head>
+<body>
+<h2>Les serveillances des examens:</h2>
+
+<table class="table table-custom">
+    <thead>
+    <tr>
+        <th>Salle</th>
+        <th>Contoleur d'absence</th>
+        <th>Affctation</th>
+        <th>Enseignants</th>
+    </tr>
+    </thead>
+    <tbody >
+    <tr th:each="surveillance : ${surveillances}">
+        <td th:text="${surveillance.salle.nomSalle}"></td>
+        <td th:text="${surveillance.admin.prenom}+' '+${surveillance.admin.nom}"></td>
+        <td th:text="${surveillance.methodeAffectation}"></td>
+        <td>
+            <ul>
+                <li th:each="enseignant : ${surveillance.enseignants}" th:text="${enseignant.prenom} + ' ' + ${enseignant.nom}"></li>
+            </ul>
+        </td>
+
+    </tr>
+    </tbody>
+</table>
+
+</body>
+
+
+
+</html>

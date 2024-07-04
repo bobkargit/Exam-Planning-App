@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>Accueil</title>
+</head>
+<body>
+<div class="d-flex">
+    <header class="flex-column bg-dark text-white p-3" style="min-height: 100vh;">
+        <div class="logo mb-4">
+            <h1>EXAM PLAN</h1>
+        </div>
+        <nav>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="/exam/Accueil1">Accueil</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="/exam/Users">Users</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="/exam/Elements">Modules</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="/exam/Salles">Salles</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="/exam/Examens">Examens</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <div class="content p-4" id="main-content">
+        <h2>Listes des examens</h2>
+        <form action="/exam/FormExam" ><button class="btn btn-success">Ajouter</button></form>
+        <br>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Nom d'examen</th>
+                <th>date de debut:</th>
+                <th>dureePrevue</th>
+                <th>dureeReelle</th>
+                <th>semester</th>
+                <th>session</th>
+                <th>typeExam</th>
+                <th>epreuve</th>
+                <th>pv</th>
+                <th>rapport</th>
+                <th>Coordinateur</th>
+                <th>surveillance</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody class="table-border-bottom-0">
+            <tr th:each="e : ${examens}">
+                <td>
+                    <i class="fab fa-angular fa-lg text-danger me-3"></i>
+                    <strong th:text="${e.nomExamen}">Angular Project</strong>
+                </td>
+                <td th:text="${e.dateHeureDebut}">Prénom</td>
+                <td th:text="${e.dureePrevue}">Email</td>
+                <td th:text="${e.dureeReelle}">Rôle</td>
+                <td th:text="${e.semester}">Nom</td>
+                <td th:text="${e.session}">Prénom</td>
+                <td th:text="${e.typeExam}">Email</td>
+                <td th:text="${e.epreuve}">Rôle</td>
+                <td th:text="${e.pv}">Nom</td>
+                <td th:text="${e.rapport}">Prénom</td>
+                <td th:text="${e.cordinateurExam}">Prénom</td>
+
+                <td>
+
+                    <form th:action="@{/exam/FormSurveillance/{idExam}(idExam=${e.idExamen})}" method="get" class="d-inline">
+                        <button type="submit">Ajouter</button>
+                    </form>
+                    <form th:action="@{/exam/ConsulterSurveillance/{idExamen}(idExamen=${e.idExamen})}" method="get"class="d-inline">
+                        <button type="submit">consulter</button>
+                    </form>
+                </td>
+                <td>
+                    <form th:action="@{/exam/editExamen/{idExamen}(idExamen=${e.idExamen})}" method="get" class="d-inline">
+                        <button type="submit" class="btn-edit">M</button>
+                    </form>
+                    <form th:action="@{/exam/deleteExamen/{idExamen}(idExamen=${e.idExamen})}" method="post" class="d-inline">
+                        <button type="submit" class="btn-delete">S</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

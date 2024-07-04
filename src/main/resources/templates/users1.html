@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>Accueil</title>
+</head>
+<body>
+<div class="d-flex">
+    <header class="flex-column bg-dark text-white p-3" style="min-height: 100vh;">
+        <div class="logo mb-4">
+            <h1>EXAM PLAN</h1>
+        </div>
+        <nav>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="/exam/Accueil1">Accueil</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="/exam/Users">Users</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="/exam/Elements">Modules</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="/exam/Salles">Salles</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="/exam/Examens">Examens</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <div class="content p-4" id="main-content">
+        <h2>Listes des utilisateurs</h2>
+        <form action="/exam/Show" method="get">
+            <button type="submit" class="btn btn-success">Ajouter</button>
+        </form><br>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Prenom</th>
+                <th>Nom</th>
+                <th>Email</th>
+                <th>Password</th>
+                <th>Type</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody class="table-border-bottom-0">
+            <tr th:each="user : ${users}">
+                <td>
+                    <i class="fab fa-angular fa-lg text-danger me-3"></i>
+                    <strong th:text="${user.firstName}">Angular Project</strong>
+                </td>
+                <td th:text="${user.lastName}">Albert Cook</td>
+                <td th:text="${user.email}">albert.cook@example.com</td>
+                <td>
+                    <span class="badge bg-label-primary me-1" th:text="${user.password}">Active</span>
+                </td>
+                <td th:text="${user.type}">User Type</td>
+                <td>
+
+                    <form th:action="@{/exam/editUser/{idUser}(idUser=${user.idUser})}" method="get" class="d-inline">
+                        <button type="submit" class="btn modify">M</button>
+                    </form>
+                    <form th:action="@{/exam/deleteUser/{idUser}(idUser=${user.idUser})}" method="post" class="d-inline">
+                        <button type="submit" class="btn modify" >S</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <!-- Ajoutez ici plus de contenu -->
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

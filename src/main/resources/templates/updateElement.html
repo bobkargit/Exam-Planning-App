@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Update un element</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+
+        h2 {
+            margin-top: 0;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .error {
+            color: red;
+            margin-top: -10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+<form action="#" th:action="@{/exam/updateElementC}" th:object="${elementModel}" method="post">
+    <h2>Element update</h2>
+
+    <input type="hidden" th:field="*{idElement}" />
+    <label for="titre">Titre</label>
+    <input type="text" id="titre" th:field="*{titre}" th:value="${elementModel.titre}" required>
+    <div class="error" th:if="${#fields.hasErrors('titre')}" th:errors="*{titre}">Titre Error</div>
+
+    <label for="niveau">Niveau</label>
+    <select id="niveau" th:field="*{niveau}" th:value="${elementModel.niveau}" required>
+        <option th:each="niveau : ${niveaux}" th:value="${niveau.titre}" th:text="${niveau.titre}">Niveau</option>
+    </select>
+    <div class="error" th:if="${#fields.hasErrors('niveau')}" th:errors="*{niveau}">Niveau Error</div>
+
+    <label for="typeElement">Type Element</label>
+    <select id="typeElement" th:field="*{typeElement}" th:value="${elementModel.typeElement}" required>
+       <option th:each="typeElement : ${typesElement}" th:value="${typeElement.titre}" th:text="${typeElement.titre}">Type Element</option>
+
+    </select>
+    <div class="error" th:if="${#fields.hasErrors('typeElement')}" th:errors="*{typeElement}">Type Element Error</div>
+
+    <label for="coordinateur">Coordinateur</label>
+    <select id="coordinateur" th:field="*{coordinateur}" th:value="${elementModel.coordinateur}" required>
+        <option th:each="enseignant : ${enseignants}" th:value="${enseignant.prenom}+' '+${enseignant.nom}" th:text="${enseignant.prenom} +' '+${enseignant.nom}">Coordinateur</option>
+    </select>
+    <div class="error" th:if="${#fields.hasErrors('coordinateur')}" th:errors="*{coordinateur}">Coordinateur Error</div>
+
+    <label for="enseignant">Enseignant</label>
+    <select id="enseignant" th:field="*{enseignant}" th:value="${elementModel.enseignant}" required>
+        <option th:each="enseignant : ${enseignants}" th:value="${enseignant.prenom}+' '+${enseignant.nom}" th:text="${enseignant.prenom}+' '+${enseignant.nom}">Enseignant</option>
+    </select>
+    <div class="error" th:if="${#fields.hasErrors('enseignant')}" th:errors="*{enseignant}">Enseignant Error</div>
+
+    <input type="submit" value="Register">
+</form>
+
+
+</body>
+</html>

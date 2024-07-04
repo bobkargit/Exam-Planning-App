@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Register</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+
+        h2 {
+            margin-top: 0;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .error {
+            color: red;
+            margin-top: -10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+<form action="#" th:action="@{/exam/updateUserC}" th:object="${userModel}" method="post">
+    <h2>User Registration</h2>
+
+    <input type="hidden" th:field="*{idUser}" />
+    <label for="firstName">First Name:</label>
+    <input type="text" id="firstName" name="firstName" th:field="*{firstName}" th:value="${userModel.firstName}">
+    <span class="error" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
+
+    <label for="lastName">Last Name:</label>
+    <input type="text" id="lastName" name="lastName" th:field="*{lastName}" th:value="${userModel.lastName}">
+    <span class="error" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" th:field="*{email}" th:value="${userModel.email}">
+    <span class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" th:field="*{password}" th:value="${userModel.password}">
+    <span class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+
+    <label for="type">User Type:</label>
+    <select id="type" name="type" th:field="*{type}">
+        <option value="admin" th:selected="${userModel.type == 'admin'}">Admin</option>
+        <option value="teacher" th:selected="${userModel.type == 'teacher'}">Enseignant</option>
+
+    </select>
+    <label for="departement">Choisir le departement:</label>
+    <select id="departement" th:field="*{departement}">
+        <option th:each="d : ${departements}" th:value="${d.idDepartement}" th:text="${d.nomDepartement}"></option>
+    </select>
+    <span class="error" th:if="${#fields.hasErrors('type')}" th:errors="*{type}"></span>
+
+    <input type="submit" value="Register">
+</form>
+
+
+</body>
+</html>

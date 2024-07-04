@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ajouter un surveillance</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+
+        h2 {
+            margin-top: 0;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .error {
+            color: red;
+            margin-top: -10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+<div th:if="${errorMessage}" class="error-message">
+    <p th:text="${errorMessage}"></p>
+</div>
+<form action="#" th:action="@{/exam/AddSurveillance}" th:object="${surveillance}" method="post">
+    <h2>User Registration</h2>
+    <label for="salle">Choisir la salle:</label>
+    <select id="salle" th:field="*{salle}">
+        <option th:each="salle : ${salles}" th:value="${salle.idSalle}" th:text="${salle.nomSalle}"></option>
+    </select>
+    <span class="error" th:if="${#fields.hasErrors('salle')}" th:errors="*{salle}"></span>
+
+    <label for="nbrSurveillants">Nombre de serveillance:</label>
+    <input type="text" id="nbrSurveillants" name="nbrSurveillants" th:field="*{nbrSurveillants}">
+    <span class="error" th:if="${#fields.hasErrors('nbrSurveillants')}" th:errors="*{nbrSurveillants}"></span>
+
+    <label for="methodeAffectation">Methode d'affectation:</label>
+    <select id="methodeAffectation" name="methodeAffectation" th:field="*{methodeAffectation}">
+        <option value="Aleatoirement">Aleatoirement</option>
+        <option th:each="d : ${deparements}" th:value="${d.nomDepartement}" th:text="${d.nomDepartement}"></option>
+    </select>
+
+
+
+    <!-- <label for="admin">Choisir la controleur d'abscence:</label>
+     <select id="admin" th:field="*{admin}">
+         <option th:each="admin : ${admins}" th:value="${admin.id}" th:text="${admin.prenom}+' '+${admin.nom}"></option>
+     </select>
+     <span class="error" th:if="${#fields.hasErrors('admin')}" th:errors="*{admin}"></span>-->
+
+    <!--<label for="enseignants">Choisir les enseignants de surveillances:</label>
+    <div id="enseignants" th:each="enseignant : ${enseignants}">
+        <input type="checkbox" th:field="*{enseignants}" th:value="${enseignant.id}" />
+        <label th:text="${enseignant.prenom}+' '+${enseignant.nom}"></label>
+    </div>-->
+
+
+    <input type="hidden" id="examenId" name="examenId" th:value="${idExammm}" >
+
+
+
+
+
+    <input type="submit" value="Register">
+</form>
+
+</body>
+</html>
