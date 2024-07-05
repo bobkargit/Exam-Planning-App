@@ -33,6 +33,6 @@ This is a web application for planning and managing exams using Spring Boot, Spr
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/exam-planning-app.git
+git clone https://github.com/bobkargit/Exam-Planning-App.git
 cd exam-planning-app
 >>>>>>> 3f69366da5be72fbb070698423f0df261ec399d4
